@@ -85,6 +85,16 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+
+  {
+    title: 'Professional Software Development in 2020',
+    date: 'February 12, 2020',
+    firstParagraph: "The trees, therefore, must be such old and primitive techniques that they thought nothing of them, deeming them so inconsequential that even savages like us would know of them and not be suspicious. At that, they probably didn't have too much time after they detected us orbiting and intending to land. And if that were true, there could be only one place where their civilization was hidden.",
+
+    secondParagraph: "Don't be scared. The things out there that are unknown aren't scary in themselves. They are just unknown at the moment. Take the time to know them before you list them as scary. Then the world will be a much less scary place for you.",
+
+    thirdParagraph: "I've rented a car in Las Vegas and have reserved a hotel in Twentynine Palms which is just north of Joshua Tree. We'll drive from Las Vegas through Mojave National Preserve and possibly do a short hike on our way down. Then spend all day on Monday at Joshua Tree. We can decide the next morning if we want to do more in Joshua Tree or Mojave before we head back.",
   }
 ];
 
@@ -112,3 +122,72 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+
+function createArticle (title, date, first, second, third) {
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const firstPara = document.createElement('p');
+  const secondPara = document.createElement('p');
+  const thirdPara = document.createElement('p');
+  const expand = document.createElement('span');
+  const closeButton = document.createElement('div')
+
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  firstPara.classList.add('content');
+  secondPara.classList.add('content');
+  thirdPara.classList.add('content');
+  expand.classList.add('expandButton');
+  closeButton.classList.add('close');
+
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  firstPara.textContent = first;
+  secondPara.textContent = second;
+  thirdPara.textContent = third;
+  expand.textContent = '\u25D2';
+  closeButton.textContent = '\u29BB';
+
+  expand.style.fontSize = '1.2rem';
+
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(firstPara);
+  article.appendChild(secondPara);
+  article.appendChild(thirdPara);
+  article.appendChild(expand);
+  article.prepend(closeButton);
+
+expand.addEventListener('click', () => {
+  article.classList.toggle('article-open');
+  if (expand.textContent == '\u25D2') {
+    expand.textContent = '\u25D3';
+    article.style.backgroundColor = '#eafaea';
+  } else {
+    expand.textContent = '\u25D2';
+    article.style.backgroundColor = 'white';
+  };
+})
+
+closeButton.addEventListener('click', () => {
+  article.style.display = 'none';
+})
+
+closeButton.addEventListener('mouseenter', () => {
+  closeButton.style.color = '#ac0022';
+})
+
+closeButton.addEventListener('mouseleave', () => {
+  closeButton.style.color = '#388E3C';
+})
+
+  return article;
+}
+
+const container = document.querySelector('.articles');
+
+data.forEach(item => {
+  container.appendChild(createArticle(item.title, item.date, item.firstParagraph, item.secondParagraph, item.thirdParagraph));
+})
